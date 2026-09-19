@@ -31,9 +31,9 @@ Run each step at Tier 1 (3–5 substeps). Recurse into a step only if its output
 | | |
 |---|---|
 | **In** | A terse pointer (a name, a URL, a “things like X”) |
-| **Out** | Named object, T1 ontology, framing sentence, top-k with competing-hypothesis votes |
-| **Invariant** | Findings are public artifacts (sources, tables, votes), not vibes |
-| **Do not** | Expand the long tail. Star-count rank. Hypotheses that all promote everything. |
+| **Out** | Named object, T1 ontology, framing sentence, top-k taken from the non-dominated set |
+| **Invariant** | Findings are public artifacts (sources, tables, votes), not vibes. Rank geometry is in LOOP.md. |
+| **Do not** | Expand the long tail. Star-count rank. Scalarize at step 4. New eval inside the loop. Hypotheses that all promote everything. |
 
 ## Install as a skill
 

@@ -20,12 +20,12 @@ name → instance → siblings → rank
 
 1. Named object + one-line job
 2. Primary instance (what it is / is not)
-3. Ranked siblings
+3. Sibling front (non-dominated set + named tail)
 4. T1 ontology (3–7 entities) + T1 taxonomy (2–4 genera)
 5. Imported frame (sourced axes)
 6. Deduped idea list
 7. Competing hypotheses + votes
-8. Top-k with reasoning
+8. Top-k with reasoning, taken from the front
 9. The loop itself, named
 
 **Stop.** A framing sentence plus a top-k. Do not start another search.
@@ -36,9 +36,23 @@ name → instance → siblings → rank
 - Public artifacts (URLs, tables, votes) over inner monologue
 - T1 only unless a step’s output blocks the next step
 - Hypotheses must disagree
-- Ranking states its criterion
+- Ranking states its axes and keeps the non-dominated set until step 10
+- Votes cite published measurements
 
 **Recursion rule.** Each step below has a T1 procedure (3–5 substeps). Recurse one more level only if that step’s output is blocking. Never recurse `siblings`, `rank`, or `top-k` more than once. `extract loop` is terminal.
+
+## Rank geometry
+
+Sweep the front. Do not expand the tail. Rank with measurements you already have. Stop.
+
+| Move | Lives in | What to emit |
+|---|---|---|
+| Pareto sweep | 4, 9 | Non-dominated set on the load-bearing columns. Dominated tail named once. |
+| Recursive candidate generation | 3, 7 | Siblings (one extra pass) then ontology × axes. Recurse only if blocked. |
+| Empirical rank | 9 | Hypothesis votes from published measurements. Measured bottlenecks beat aesthetics. |
+| Commit | 10 | k from the front. |
+
+Pareto here is the front over those columns. Recursion is bounded candidate generation. Empirical ranking uses numbers the field already published. Running the candidates is the work after this loop.
 
 ---
 
@@ -117,23 +131,25 @@ name → instance → siblings → rank
 
 ## 4. Collate, then rank
 
-**Job.** Ordering is the product. The list is not.
+**Job.** Ordering is the product. The list is not. This step emits a non-dominated set on the load-bearing columns.
 
 **In.** Candidate table.
 
 **T1 procedure.**
 
 1. Collate onto the instance’s load-bearing columns (for a CRS: witness, fix gate, runnable, not stars).
-2. State the rank criterion in one sentence.
-3. Order. Closed or unrunnable systems go below runnable ones unless the criterion says otherwise.
+2. State the sweep axes in one sentence. These are those columns.
+3. Mark dominated rows: worse or equal on every axis, strictly worse on one. That is the tail.
+4. Keep the non-dominated set. Order the front only so the top 3–6 are readable.
+5. Closed or unrunnable systems go below runnable ones unless an axis says otherwise.
 
-**Out.** Ranked list + stated criterion.
+**Out.** Non-dominated set, named tail, stated axes.
 
-**Stop this step when.** The top 3–6 are stable if you drop the tail.
+**Stop this step when.** The front is stable if you drop the tail.
 
-**Fail.** Star-count ranking. Alphabetical dump.
+**Fail.** Star-count ranking. Alphabetical dump. One weighted score that hides a tradeoff the columns still show.
 
-**Do not.** Build a 40-row taxonomy here. That is step 5.
+**Do not.** Build a 40-row taxonomy here. That is step 5. Pick k here. That is step 10.
 
 ---
 
@@ -141,7 +157,7 @@ name → instance → siblings → rank
 
 **Job.** Compress the field to the entities that distinguish 80% of cases.
 
-**In.** Ranked siblings + instance card.
+**In.** Sibling front + instance card.
 
 **T1 procedure.**
 
@@ -234,7 +250,7 @@ name → instance → siblings → rank
 
 ## 9. Rank with competing hypotheses
 
-**Job.** Hypotheses that disagree vote on the list.
+**Job.** Hypotheses that disagree vote on the list. Votes are measurements the field already published.
 
 **In.** Idea list + whatever the field has already measured.
 
@@ -242,15 +258,15 @@ name → instance → siblings → rank
 
 1. Write at least 3 hypotheses. Each must *promote different ideas*. If they all promote the same top-k, they are not competing.
 2. For each: claim, what it says to work on, what would falsify it.
-3. Let evidence from the instance/siblings vote (measured bottlenecks beat aesthetics).
+3. Let evidence from the instance/siblings vote (measured bottlenecks beat aesthetics). A vote without a number or a primary source does not count.
 4. State the resolution rule (which votes count for ranking).
-5. Reorder the idea list.
+5. Mark ideas dominated under that rule. Keep the non-dominated set. Reorder only inside the front.
 
-**Out.** Hypothesis table, votes, reordered list.
+**Out.** Hypothesis table, votes, non-dominated set, named tail.
 
 **Stop this step when.** The top 5 would not change if you dropped the weakest hypothesis.
 
-**Fail.** “Hypotheses” that are all true together. Ranking by how clever the name is.
+**Fail.** “Hypotheses” that are all true together. Ranking by how clever the name is. A new eval or a new search used as a vote.
 
 ### T1 recurse (only if votes are a tie)
 
@@ -262,13 +278,13 @@ name → instance → siblings → rank
 
 ## 10. Top-k + reasoning
 
-**Job.** Commit.
+**Job.** Commit. k comes from the front that steps 4 and 9 kept.
 
-**In.** Reordered list + resolution rule.
+**In.** Non-dominated set + resolution rule.
 
 **T1 procedure.**
 
-1. Pick k (default 5). k is not “all of them”.
+1. Pick k (default 5). k is not “all of them” and not the tail.
 2. For each item: one paragraph of why it survives the votes. No restating the table.
 3. Write the framing sentence the top-k commits you to.
 
@@ -276,9 +292,9 @@ name → instance → siblings → rank
 
 **Stop this step when.** You would start work on item 1 tomorrow, not research item 6.
 
-**Fail.** k = N. A framing sentence that does not mention the ontology.
+**Fail.** k = N. k drawn from the dominated tail. A framing sentence that does not mention the ontology.
 
-**Do not.** Start building the ideas in this step. This loop produces a frame and a list, not the implementation.
+**Do not.** Start building the ideas in this step. This loop produces a frame and a list, not the implementation. Do not run the candidates here.
 
 ---
 
@@ -314,6 +330,9 @@ name → instance → siblings → rank
 | Hypotheses that agree | Then they are a manifesto, not a ranker |
 | Expanding Tier 2 | The 80/20 already threw it away |
 | Star-count rank | Stars are not a witness |
+| One weighted score at step 4 | The columns were the sweep; the score hid the tradeoff |
+| New eval or search as a vote | Votes use measurements you already have |
+| Breeding candidates after ranking | Recursion is one extra pass at 3/7, then stop |
 | Frame without a source | You made up axes |
 | Implementing during the loop | This loop decides what to work; it is not the work |
 
@@ -321,4 +340,5 @@ name → instance → siblings → rank
 
 - Fetch primary sources in steps 2, 3, 6. Do not invent axes or star counts.
 - If a sibling is closed-source, keep it in the table and mark it closed. Do not pretend it is a clone you can run.
+- Keep the non-dominated set at 4 and 9. Commit k from it at 10.
 - When the user says “recursive breakdown, T1 only”, obey step 5’s fail column even if you have more to say.

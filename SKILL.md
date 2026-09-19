@@ -33,28 +33,29 @@ Do not use for a single-file bugfix, a look-up of a known API, or implementing t
 
 ## Procedure
 
-Follow LOOP.md steps 1–11 in order. At each step: T1 only (3–5 substeps). Recurse one level only if that step’s output blocks the next. Never recurse `siblings`, `rank`, or `top-k` more than once.
+Follow LOOP.md steps 1–11 in order. At each step: T1 only (3–5 substeps). Recurse one level only if that step’s output blocks the next. Never recurse `siblings`, `rank`, or `top-k` more than once. Rank geometry (sweep, generate, empirical vote, commit) lives in LOOP.md.
 
 Emit, in the final message:
 
 1. `object` + `job`
 2. Instance card (is / is not / limits) with primary URLs
-3. Ranked siblings + rank criterion
+3. Sibling front (non-dominated set + named tail) + sweep axes
 4. Ontology entities, binding relation, first-cut question, T1 genera
 5. Frame (name, source, axes, framing sentence)
 6. Deduped idea list
 7. Competing hypotheses (claim / promotes / falsifier) and the resolution rule
-8. Top-k with reasoning
+8. Top-k with reasoning, taken from the front
 9. Short form of the loop + stop condition
 
 ## Invariants
 
 - Primary sources over roundups
-- Rank criterion stated
-- Hypotheses disagree
+- Sweep axes stated; non-dominated set kept until step 10
+- Hypotheses disagree; votes cite published measurements
 - Tier 2 named once, not expanded
 - No implementation of the top-k inside this loop
+- No new eval or search used as a vote
 
 ## Fail closed
 
-If you cannot find a primary source for the instance, stop after step 2 and say so. If you cannot find a sourced frame, skip steps 6–7 and rank siblings only.
+If you cannot find a primary source for the instance, stop after step 2 and say so. If you cannot find a sourced frame, skip steps 6–7 and emit the sibling front only.
