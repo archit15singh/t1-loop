@@ -1,8 +1,8 @@
 # T1 Loop
 
-An agentic research loop. Name an object, compress the field to a few entities, import a frame, explode, compete, commit. Then stop.
+Agent skill: **Vital Few**. Name an object, compress the field to a few entities, import a frame, explode, compete, commit. Then stop.
 
-This repo is the spec. It is not a product, a scanner, or a 15-stage pipeline.
+This repo is the spec. T1 means Tier 1 (the cut), not the ZDT T1 test function, not a control-loop \(t_1\). It is not a product, a scanner, a Deep Research report writer, or a 15-stage pipeline.
 
 ## Short form
 
@@ -37,4 +37,4 @@ Run each step at Tier 1 (3–5 substeps). Recurse into a step only if its output
 
 ## Install as a skill
 
-Copy `SKILL.md` (and `LOOP.md` next to it) into your agent’s skills directory, or clone this repo and point the agent at it.
+Copy `SKILL.md` (and `LOOP.md` next to it) into your agent’s skills directory as `vital-few`. Or clone this repo and point the agent at it. `t1-loop` remains an alias in the skill description.

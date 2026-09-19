@@ -1,6 +1,6 @@
 # T1 Loop — recursive breakdown
 
-Source of truth for the loop. `SKILL.md` is the runbook. This file is the spec.
+Source of truth for the loop. `SKILL.md` is the runbook (skill name: **Vital Few**). This file is the spec. T1 means Tier 1, the cut. Not the ZDT T1 test function, not a control-loop \(t_1\).
 
 ## Short form
 
@@ -45,14 +45,14 @@ name → instance → siblings → rank
 
 Sweep the front. Do not expand the tail. Rank with measurements you already have. Stop.
 
-| Move | Lives in | What to emit |
-|---|---|---|
-| Pareto sweep | 4, 9 | Non-dominated set on the load-bearing columns. Dominated tail named once. |
-| Recursive candidate generation | 3, 7 | Siblings (one extra pass) then ontology × axes. Recurse only if blocked. |
-| Empirical rank | 9 | Hypothesis votes from published measurements. Measured bottlenecks beat aesthetics. |
-| Commit | 10 | k from the front. |
+| Move | Lives in | What to emit | Source |
+|---|---|---|---|
+| Vital-few sweep | 4, 9 | Non-dominated set on the load-bearing columns. Dominated tail named once (useful many). | Juran: vital few / useful many. He hung Pareto’s name on a cut that is his ([1974 mea culpa](https://www.juran.com/wp-content/uploads/2021/03/The-Non-Pareto-Principle-1974.pdf)). |
+| Recursive candidate generation | 3, 7 | Siblings (one extra pass) then ontology × axes. Recurse only if blocked. Kill inconsistent cells. | Zwicky morphological box + cross-consistency assessment ([GMA](https://www.swemorph.com/ma.html)). Wohlin: one extra snowball from a seed set. |
+| Empirical rank | 9 | Hypotheses that *disagree*. Each vote cites a published measurement or can exclude. Datum is the instance: better / worse / same, not a weighted score. | Chamberlin 1890, [method of multiple working hypotheses](https://serc.carleton.edu/resources/1192.html). Platt 1964, strong inference (exclude, do not confirm). Pugh concept selection (datum +/−/S). |
+| Commit | 10 | k from the front. Stop when the aspiration is met. | Simon 1955, satisficing: a good-enough threshold, then stop. |
 
-Pareto here is the front over those columns. Recursion is bounded candidate generation. Empirical ranking uses numbers the field already published. Running the candidates is the work after this loop.
+This is a front over load-bearing columns, not a ZDT test function. Recursion is bounded candidate generation, not a generational optimizer. Running the candidates is the work after this loop.
 
 ---
 

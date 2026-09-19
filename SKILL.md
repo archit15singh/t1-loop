@@ -1,17 +1,18 @@
 ---
-name: t1-loop
+name: vital-few
 description: >
-  Run a Pareto research loop: name an object, explain the primary instance,
-  find siblings, rank them, compress to a T1 ontology and taxonomy, import a
-  framing discipline, explode ontology × axes, collate, rank with competing
-  hypotheses, commit to top-k, extract the loop. Use when the user says
-  t1-loop, meta-loop, 80/20 ontology, recursive breakdown, competing
-  hypotheses, or wants a research procedure pulled out of a session.
+  Compress a terse pointer into a reusable frame and a top-k you would work.
+  Name the object, explain the instance, find siblings, sweep a non-dominated
+  set, cut to a T1 (Tier 1) ontology, import a frame, explode, rank with
+  hypotheses that disagree, commit, stop. Use when the user says vital few,
+  t1-loop, 80/20 ontology, T1 taxonomy, competing hypotheses, or wants a
+  field compressed not toured. Not the ZDT T1 test function, not a control
+  loop t₁, not a Deep Research report.
 ---
 
-# T1 Loop
+# Vital Few
 
-Run the loop in [LOOP.md](LOOP.md). That file is the spec. This file is the runbook.
+Run the loop in [LOOP.md](LOOP.md). That file is the spec. This file is the runbook. T1 in the spec means Tier 1 (the cut).
 
 ## Short form
 
@@ -26,8 +27,8 @@ name → instance → siblings → rank
 ## When to use
 
 - A terse pointer (“X”, “things like X”, a URL) and the user wants the field compressed, not a tour.
-- The user asks for 80/20 ontology, T1 taxonomy, competing hypotheses, or top-k.
-- The user asks what loop they just ran.
+- The user asks for vital few, 80/20 ontology, T1 taxonomy, competing hypotheses, or top-k.
+- The user says t1-loop (old name) or asks what loop they just ran.
 
 Do not use for a single-file bugfix, a look-up of a known API, or implementing the top-k.
 
