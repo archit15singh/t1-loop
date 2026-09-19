@@ -8,11 +8,11 @@ This repo is the spec. T1 means Tier 1 (the cut), not the ZDT T1 test function, 
 
 ```
 name → instance → siblings → rank
-    → ontology (T1) → frame → explode → collate
+    → ontology (T1) → frame → explode → cca
     → hypothesis-rank → top-k → extract loop
 ```
 
-**Stop when** you have a framing sentence you can reuse and a top-k you would actually work. Not another search.
+**Aspiration.** Stop when the framing sentence names the ontology, top-k is from the front, item 1 is something you would start tomorrow, and no further search is queued.
 
 ## Files
 
@@ -31,9 +31,9 @@ Run each step at Tier 1 (3–5 substeps). Recurse into a step only if its output
 | | |
 |---|---|
 | **In** | A terse pointer (a name, a URL, a “things like X”) |
-| **Out** | Named object, T1 ontology, framing sentence, top-k taken from the non-dominated set |
-| **Invariant** | Findings are public artifacts (sources, tables, votes), not vibes. Rank geometry is in LOOP.md. |
-| **Do not** | Expand the long tail. Star-count rank. Scalarize at step 4. New eval inside the loop. Hypotheses that all promote everything. |
+| **Out** | Named object, T1 ontology, framing sentence, top-k from the front, item-1 witness |
+| **Invariant** | Findings are public artifacts (sources, tables, votes), not vibes. Rank geometry is in LOOP.md. Aspiration is four checks. |
+| **Do not** | Expand the long tail. Star-count rank. Scalarize at step 4. Skip CCA. New eval inside the loop. Hypotheses that all promote everything. |
 
 ## Install as a skill
 

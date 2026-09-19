@@ -6,7 +6,7 @@ Source of truth for the loop. `SKILL.md` is the runbook (skill name: **Vital Few
 
 ```
 name → instance → siblings → rank
-    → ontology (T1) → frame → explode → collate
+    → ontology (T1) → frame → explode → cca
     → hypothesis-rank → top-k → extract loop
 ```
 
@@ -23,12 +23,19 @@ name → instance → siblings → rank
 3. Sibling front (non-dominated set + named tail)
 4. T1 ontology (3–7 entities) + T1 taxonomy (2–4 genera)
 5. Imported frame (sourced axes)
-6. Deduped idea list
+6. Deduped idea list after CCA
 7. Competing hypotheses + votes
-8. Top-k with reasoning, taken from the front
+8. Top-k with reasoning, taken from the front, plus item-1 witness
 9. The loop itself, named
 
-**Stop.** A framing sentence plus a top-k. Do not start another search.
+**Aspiration (Simon).** Met when all four hold. Then stop. Do not search.
+
+1. A framing sentence exists and names the ontology.
+2. Top-k is taken from the front. k is not N.
+3. Item-1 witness: you would start work on item 1 tomorrow with only that sentence and this list. Written `yes` + one line, or `no`.
+4. No further search is queued.
+
+If 3 is `no`: one recut of k or of item 1 inside step 10. Then stop anyway.
 
 **Invariants.**
 
@@ -38,6 +45,8 @@ name → instance → siblings → rank
 - Hypotheses must disagree
 - Ranking states its axes and keeps the non-dominated set until step 10
 - Votes cite published measurements
+- Step 8 runs CCA before the list is numbered
+- Aspiration is the four checks above, not a vibe
 
 **Recursion rule.** Each step below has a T1 procedure (3–5 substeps). Recurse one more level only if that step’s output is blocking. Never recurse `siblings`, `rank`, or `top-k` more than once. `extract loop` is terminal.
 
@@ -48,9 +57,10 @@ Sweep the front. Do not expand the tail. Rank with measurements you already have
 | Move | Lives in | What to emit | Source |
 |---|---|---|---|
 | Vital-few sweep | 4, 9 | Non-dominated set on the load-bearing columns. Dominated tail named once (useful many). | Juran: vital few / useful many. He hung Pareto’s name on a cut that is his ([1974 mea culpa](https://www.juran.com/wp-content/uploads/2021/03/The-Non-Pareto-Principle-1974.pdf)). |
-| Recursive candidate generation | 3, 7 | Siblings (one extra pass) then ontology × axes. Recurse only if blocked. Kill inconsistent cells. | Zwicky morphological box + cross-consistency assessment ([GMA](https://www.swemorph.com/ma.html)). Wohlin: one extra snowball from a seed set. |
+| Recursive candidate generation | 3, 7 | Siblings (one extra pass) then ontology × axes. Recurse only if blocked. | Zwicky morphological box ([GMA](https://www.swemorph.com/ma.html)). Wohlin: one extra snowball from a seed set. |
+| Cross-consistency | 8 | Kill cells that contradict the instance, the first-cut, or each other. Then merge. | Zwicky CCA. Empty is allowed; contradiction is not. |
 | Empirical rank | 9 | Hypotheses that *disagree*. Each vote cites a published measurement or can exclude. Datum is the instance: better / worse / same, not a weighted score. | Chamberlin 1890, [method of multiple working hypotheses](https://serc.carleton.edu/resources/1192.html). Platt 1964, strong inference (exclude, do not confirm). Pugh concept selection (datum +/−/S). |
-| Commit | 10 | k from the front. Stop when the aspiration is met. | Simon 1955, satisficing: a good-enough threshold, then stop. |
+| Commit | 10 | k from the front. Aspiration four-check, including item-1 witness. Then stop. | Simon 1955, satisficing. |
 
 This is a front over load-bearing columns, not a ZDT test function. Recursion is bounded candidate generation, not a generational optimizer. Running the candidates is the work after this loop.
 
@@ -224,27 +234,30 @@ This is a front over load-bearing columns, not a ZDT test function. Recursion is
 
 **Fail.** 20 slogans. Cells that do not mention the entity.
 
-**Do not.** Rank here.
+**Do not.** Rank here. Do not prune here. That is step 8.
 
 ---
 
-## 8. Dedup into a list
+## 8. CCA, then dedup
 
-**Job.** Cells collapse. Keep distinct ideas only.
+**Job.** The morphological box is raw. Cross-consistency kills what cannot coexist. What remains is the list.
 
-**In.** Matrix.
+**In.** Matrix + instance card + first-cut.
 
 **T1 procedure.**
 
-1. Merge cells that are the same claim in different jargon.
-2. Drop cells that are vocabulary for another idea (keep the name, not the project).
-3. Number the remainder. 8–20 is the useful band. Below 5 you under-exploded; above 25 you did not merge.
+1. **CCA.** For each non-empty cell, ask: does this contradict the instance card, the first-cut question, or another kept cell? If yes, drop it and write the contradiction in one clause. Empty cells stay empty; they are not contradictions.
+2. Merge remaining cells that are the same claim in different jargon.
+3. Drop cells that are vocabulary for another idea (keep the name, not the project).
+4. Number the remainder. 8–20 is the useful band. Below 5 you under-exploded; above 25 you did not merge.
 
-**Out.** Numbered idea list.
+**Out.** Numbered idea list + dropped-cell log (contradiction, one clause each).
 
-**Stop this step when.** No two items would produce the same artifact.
+**Stop this step when.** No two items would produce the same artifact, and no kept item contradicts the instance or the first-cut.
 
-**Fail.** Keeping the whole matrix as the list.
+**Fail.** Keeping the whole matrix as the list. Keeping a cell that cannot coexist with the instance.
+
+**Do not.** Invent a second matrix. CCA is one pass.
 
 ---
 
@@ -278,7 +291,7 @@ This is a front over load-bearing columns, not a ZDT test function. Recursion is
 
 ## 10. Top-k + reasoning
 
-**Job.** Commit. k comes from the front that steps 4 and 9 kept.
+**Job.** Commit. k comes from the front that steps 4 and 9 kept. Aspiration is checked here.
 
 **In.** Non-dominated set + resolution rule.
 
@@ -286,13 +299,15 @@ This is a front over load-bearing columns, not a ZDT test function. Recursion is
 
 1. Pick k (default 5). k is not “all of them” and not the tail.
 2. For each item: one paragraph of why it survives the votes. No restating the table.
-3. Write the framing sentence the top-k commits you to.
+3. Write the framing sentence the top-k commits you to. It must name the ontology.
+4. **Item-1 witness.** Answer: would you start work on item 1 tomorrow with only this sentence and this list? Write `yes` + one line, or `no` + which item you would start instead.
+5. Run the four aspiration checks. If witness is `no`, one recut of k or of item 1. Do not open a new search. Then stop.
 
-**Out.** Framing sentence + top-k.
+**Out.** Framing sentence + top-k + item-1 witness + aspiration (pass / recut-then-pass).
 
-**Stop this step when.** You would start work on item 1 tomorrow, not research item 6.
+**Stop this step when.** All four aspiration checks hold.
 
-**Fail.** k = N. k drawn from the dominated tail. A framing sentence that does not mention the ontology.
+**Fail.** k = N. k drawn from the dominated tail. A framing sentence that does not mention the ontology. Witness skipped. A new query used to decide item 1.
 
 **Do not.** Start building the ideas in this step. This loop produces a frame and a list, not the implementation. Do not run the candidates here.
 
@@ -334,6 +349,9 @@ This is a front over load-bearing columns, not a ZDT test function. Recursion is
 | New eval or search as a vote | Votes use measurements you already have |
 | Breeding candidates after ranking | Recursion is one extra pass at 3/7, then stop |
 | Frame without a source | You made up axes |
+| Skipping CCA at step 8 | Then the list still contains combinations the instance forbids |
+| Aspiration as a vibe | The four checks were the stop. “Looks done” is not a check |
+| Item-1 you would not start | Then you did not commit. Recut once, stop |
 | Implementing during the loop | This loop decides what to work; it is not the work |
 
 ## Agent notes
@@ -341,4 +359,5 @@ This is a front over load-bearing columns, not a ZDT test function. Recursion is
 - Fetch primary sources in steps 2, 3, 6. Do not invent axes or star counts.
 - If a sibling is closed-source, keep it in the table and mark it closed. Do not pretend it is a clone you can run.
 - Keep the non-dominated set at 4 and 9. Commit k from it at 10.
+- Step 8 is CCA: drop contradictions, then merge. Step 10 emits the item-1 witness and the four aspiration checks.
 - When the user says “recursive breakdown, T1 only”, obey step 5’s fail column even if you have more to say.

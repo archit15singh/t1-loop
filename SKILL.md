@@ -18,11 +18,11 @@ Run the loop in [LOOP.md](LOOP.md). That file is the spec. This file is the runb
 
 ```
 name → instance → siblings → rank
-    → ontology (T1) → frame → explode → collate
+    → ontology (T1) → frame → explode → cca
     → hypothesis-rank → top-k → extract loop
 ```
 
-**Stop when** you have a framing sentence you can reuse and a top-k you would actually work. Not another search.
+**Aspiration.** Stop when all four hold: framing sentence names the ontology; top-k is from the front and k is not N; item-1 witness is `yes` + one line; no further search is queued. If witness is `no`, one recut inside step 10, then stop anyway.
 
 ## When to use
 
@@ -34,7 +34,7 @@ Do not use for a single-file bugfix, a look-up of a known API, or implementing t
 
 ## Procedure
 
-Follow LOOP.md steps 1–11 in order. At each step: T1 only (3–5 substeps). Recurse one level only if that step’s output blocks the next. Never recurse `siblings`, `rank`, or `top-k` more than once. Rank geometry (sweep, generate, empirical vote, commit) lives in LOOP.md.
+Follow LOOP.md steps 1–11 in order. At each step: T1 only (3–5 substeps). Recurse one level only if that step’s output blocks the next. Never recurse `siblings`, `rank`, or `top-k` more than once. Rank geometry lives in LOOP.md. Step 8 is Zwicky CCA then dedup. Step 10 emits the item-1 witness and the four aspiration checks.
 
 Emit, in the final message:
 
@@ -43,20 +43,22 @@ Emit, in the final message:
 3. Sibling front (non-dominated set + named tail) + sweep axes
 4. Ontology entities, binding relation, first-cut question, T1 genera
 5. Frame (name, source, axes, framing sentence)
-6. Deduped idea list
+6. Deduped idea list after CCA (plus dropped-cell log)
 7. Competing hypotheses (claim / promotes / falsifier) and the resolution rule
-8. Top-k with reasoning, taken from the front
-9. Short form of the loop + stop condition
+8. Top-k with reasoning, taken from the front, plus item-1 witness (`yes`/`no` + one line)
+9. Short form of the loop + aspiration four-check
 
 ## Invariants
 
 - Primary sources over roundups
 - Sweep axes stated; non-dominated set kept until step 10
+- Step 8 runs CCA before the list is numbered
 - Hypotheses disagree; votes cite published measurements
 - Tier 2 named once, not expanded
 - No implementation of the top-k inside this loop
 - No new eval or search used as a vote
+- Aspiration is the four checks, including item-1 witness
 
 ## Fail closed
 
-If you cannot find a primary source for the instance, stop after step 2 and say so. If you cannot find a sourced frame, skip steps 6–7 and emit the sibling front only.
+If you cannot find a primary source for the instance, stop after step 2 and say so. If you cannot find a sourced frame, skip steps 6–8 and emit the sibling front only.
